@@ -19,11 +19,11 @@
                         #{est.sigla}
                     </p:column>
                     <p:column headerText="Operações">
-                        <p:commandButton icon="ui-icon-pencil" action="estadoedita" actionListener="#{estadoControle.alterar(est)}"/>
+                        <p:commandButton icon="ui-icon-pencil" action="estadoedita.xhtml?faces-redirect=true" actionListener="#{estadoControle.alterar(est)}"/>
                         <p:commandButton icon="ui-icon-closethick" ajax="false" actionListener="#{estadoControle.excluir(est)}"/>
                     </p:column>
                 </p:dataTable>
-                <p:commandButton value="Novo estado" action="estadoedita" ajax="false" actionListener="#{estadoControle.novo()}"/>
+                <p:commandButton value="Novo estado" action="estadoedita.xhtml?faces-redirect=true" ajax="false" actionListener="#{estadoControle.novo()}"/>
             </h:form>
         </ui:define>
     </ui:composition>

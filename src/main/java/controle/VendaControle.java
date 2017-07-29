@@ -7,6 +7,7 @@ package controle;
 
 import converter.ConverterGenerico;
 import converter.MoneyConverter;
+import entidade.ContaReceber;
 import entidade.ItensVenda;
 import entidade.Pessoa;
 import entidade.Produto;
@@ -15,6 +16,8 @@ import facade.PessoaFacade;
 import facade.ProdutoFacade;
 import facade.VendaFacade;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -41,6 +44,27 @@ public class VendaControle {
     @EJB
     private ProdutoFacade produtoFacade;
     private ConverterGenerico converterProduto;
+    private Date dataPrimeiraParcela;
+    
+    public void gerarParcelas() {
+        venda.setListaContasReceber(new ArrayList<ContaReceber>());
+        Date dataParcela = dataPrimeiraParcela;
+        for (int i = 1; i <= venda.getNumeroParcelas(); i++) {
+            ContaReceber cr = new ContaReceber();
+            cr.setDataLancamento(venda.getDataVenda());
+            cr.setVenda(venda);
+            cr.setPessoa(venda.getPessoa());
+            cr.setValor(venda.getValorTotal()/venda.getNumeroParcelas());
+            cr.setParcela(i);
+            cr.setVencimento(dataParcela);
+            venda.getListaContasReceber().add(cr);
+            
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(dataParcela);
+            cal.add(Calendar.MONTH, 1);
+            dataParcela = cal.getTime();
+        }
+    }
     
     public void addItem(){
         Double estoque = itensVenda.getProduto().getEstoque();
@@ -140,6 +164,16 @@ public class VendaControle {
     public void setVenda(Venda venda) {
         this.venda = venda;
     }
+
+    public Date getDataPrimeiraParcela() {
+        return dataPrimeiraParcela;
+    }
+
+    public void setDataPrimeiraParcela(Date dataPrimeiraParcela) {
+        this.dataPrimeiraParcela = dataPrimeiraParcela;
+    }
+    
+    
 
     public void salvar() {
         vendaFacade.salvar(venda);

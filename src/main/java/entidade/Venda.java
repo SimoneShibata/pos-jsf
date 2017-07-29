@@ -36,12 +36,33 @@ public class Venda implements Serializable {
     private Double valorTotal;
     @ManyToOne
     private Pessoa pessoa;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "venda", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "venda", orphanRemoval = true)
     private List<ItensVenda> itensVendas;
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "venda", orphanRemoval = true)
+    private List<ContaReceber> listaContasReceber;
+    private Integer numeroParcelas;
+    
     public Venda() {
         dataVenda = new Date();
         itensVendas = new ArrayList<ItensVenda>();
+        listaContasReceber = new ArrayList<ContaReceber>();
+    }
+
+    public Integer getNumeroParcelas() {
+        return numeroParcelas;
+    }
+
+    public void setNumeroParcelas(Integer numeroParcelas) {
+        this.numeroParcelas = numeroParcelas;
+    }
+
+    
+    public List<ContaReceber> getListaContasReceber() {
+        return listaContasReceber;
+    }
+
+    public void setListaContasReceber(List<ContaReceber> listaContasReceber) {
+        this.listaContasReceber = listaContasReceber;
     }
 
     public Date getDataVenda() {

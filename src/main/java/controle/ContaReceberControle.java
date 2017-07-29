@@ -5,9 +5,12 @@
  */
 package controle;
 
+import converter.MoneyConverter;
+import entidade.BaixaContaReceber;
 import entidade.ContaReceber;
 import facade.ContaReceberFacade;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -24,6 +27,21 @@ public class ContaReceberControle {
 
     @EJB
     private ContaReceberFacade contaReceberFacade;
+    private MoneyConverter moneyConverter;
+    private BaixaContaReceber baixaContaReceber;
+    
+    public boolean getSituacaoPago(ContaReceber cr) {
+        if(Objects.equals(cr.getValorBaixado(), cr.getValor())) {
+            return true;
+        }
+        return false;
+    }
+    public boolean getSituacaoAberto(ContaReceber cr) {
+        if(cr.getValorBaixado() < cr.getValor()) {
+            return true;
+        }
+        return false;
+    }
     
     public List<ContaReceber> listaTodos() {
         return contaReceberFacade.listaTodos();
@@ -51,6 +69,32 @@ public class ContaReceberControle {
 
     public void alterar(ContaReceber e) {
         this.contaReceber = e;
+        baixaContaReceber = new BaixaContaReceber();
     }
 
+    public MoneyConverter getMoneyConverter() {
+        if (moneyConverter == null) {
+            moneyConverter = new MoneyConverter();
+        }
+        return moneyConverter;
+    }
+
+    public void setMoneyConverter(MoneyConverter moneyConverter) {
+        this.moneyConverter = moneyConverter;
+    }
+
+    public BaixaContaReceber getBaixaContaReceber() {
+        return baixaContaReceber;
+    }
+
+    public void setBaixaContaReceber(BaixaContaReceber baixaContaReceber) {
+        this.baixaContaReceber = baixaContaReceber;
+    }
+    
+    public void baixar() {
+        baixaContaReceber.setContaReceber(contaReceber);
+        contaReceber.getListaBaixa().add(baixaContaReceber);
+        baixaContaReceber = new BaixaContaReceber();
+    }
+    
 }

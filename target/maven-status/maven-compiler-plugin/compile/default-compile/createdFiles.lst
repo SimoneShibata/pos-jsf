@@ -18,6 +18,7 @@ controle\EstadoControle.class
 entidade\GrupoProduto.class
 facade\AbstractFacade.class
 facade\CidadeFacade.class
+entidade\BaixaContaReceber.class
 facade\PessoaJuridicaFacade.class
 facade\EstadoFacade.class
 facade\VendaFacade.class

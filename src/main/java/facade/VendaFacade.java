@@ -9,6 +9,7 @@ import entidade.ContaReceber;
 import entidade.ItensVenda;
 import entidade.Produto;
 import entidade.Venda;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,16 @@ public class VendaFacade extends AbstractFacade<Venda> {
     protected EntityManager getEntityManager() {
         return em;
     }
+
+    @Override
+    public List<Venda> listaTodos() {
+        List<Venda> vendas = super.listaTodos();
+        for(Venda v : vendas) {
+            v.getItensVendas().size();
+            v.getListaContasReceber().size();
+        }
+        return vendas;
+    }
     
     public VendaFacade() {
         super(Venda.class);
@@ -35,7 +46,7 @@ public class VendaFacade extends AbstractFacade<Venda> {
     @Override
     public void salvar(Venda venda) {
         baixarEstoque(venda);
-        geraContaReceber(em.merge(venda));
+        em.merge(venda);
     }
     
     private void baixarEstoque(Venda venda) {
@@ -44,15 +55,6 @@ public class VendaFacade extends AbstractFacade<Venda> {
             produto.setEstoque(produto.getEstoque() - item.getQuantidade());
             em.merge(produto);
         }
-    }
-    
-    private void geraContaReceber(Venda venda) {
-        ContaReceber cr = new ContaReceber();
-        cr.setDataLancamento(venda.getDataVenda());
-        cr.setVencimento(venda.getDataVenda());
-        cr.setValor(venda.getValorTotal());
-        cr.setVenda(venda);
-        em.merge(cr);
     }
     
 }

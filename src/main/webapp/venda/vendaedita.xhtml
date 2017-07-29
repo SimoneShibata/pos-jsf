@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/index.xhtml">
         <ui:define name="body">
             <h:form>
@@ -66,6 +67,29 @@
                             </p:column>
                         </p:dataTable>
                 </p:panel>
+                <p:panel header="Parcelas" id="painelParcelas">
+                    Quantidade de Parcelas:
+                    <p:inputText value="#{vendaControle.venda.numeroParcelas}" />
+                    Data da primeira parcela:
+                    <p:calendar value="#{vendaControle.dataPrimeiraParcela}" 
+                                pattern="dd/MM/yyyy"
+                                locale="pt_BR"/>
+                    <p:commandButton value="Gerar parcelas" ajax="true" update="painelParcelas" actionListener="#{vendaControle.gerarParcelas()}"/>
+                    <p:dataTable value="#{vendaControle.venda.listaContasReceber}" var="cr">
+                        <p:column headerText="Vencimento">
+                            <h:outputText value="#{cr.vencimento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Parcela">
+                            <h:outputText value="#{cr.parcela}"></h:outputText>
+                        </p:column>
+                        <p:column headerText="Valor">
+                            <h:outputText value="#{cr.valor}" converter="#{vendaControle.moneyConverter}"></h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+                
                 <p:commandButton value="Salvar" actionListener="#{vendaControle.salvar()}" action="vendalista" ajax="false"/>
                 <p:commandButton value="Voltar" action="vendalista" immediate="true" ajax="false" />
 
