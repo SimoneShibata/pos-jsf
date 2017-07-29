@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <h2>Movimento de Contas à Receber</h2>                
+                <p:dataTable value="#{contaReceberControle.listaTodos()}" var="cr" id="tabela"
+                             paginator="true" rows="3"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="3,5,10,15,20,50,100">
+                    <p:column headerText="Situação">
+                        <p:outputLabel value="Aberto" style="font-weight: bold;color: red" rendered="#{contaReceberControle.getSituacaoAberto(cr)}" />
+                        <p:outputLabel value="Pago" style="font-weight: bold;color: green" rendered="#{contaReceberControle.getSituacaoPago(cr)}" />
+                    </p:column>
+                    <p:column headerText="Data Lançamento" filterBy="#{cr.dataLancamento}" filterMatchMode="contains">
+                        <p:outputLabel value="#{cr.dataLancamento}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                        </p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Data Vencimento" filterBy="#{cr.vencimento}" filterMatchMode="contains">
+                        <p:outputLabel value="#{cr.vencimento}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                        </p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Cliente" filterBy="#{cr.pessoa.nome}" filterMatchMode="contains">
+                        #{cr.pessoa.nome}
+                    </p:column>
+                    <p:column headerText="Parcela" filterBy="#{cr.parcela}" filterMatchMode="contains">
+                        #{cr.parcela}
+                    </p:column>
+                    <p:column headerText="Valor" filterBy="#{cr.valor}" filterMatchMode="contains">
+                        <h:outputText value="#{cr.valor}" converter="#{contaReceberControle.moneyConverter}"/>
+                    </p:column>
+                    <p:column headerText="Valor Baixado" filterBy="#{cr.valorBaixado}" filterMatchMode="contains">
+                        <h:outputText value="#{cr.valorBaixado}" converter="#{contaReceberControle.moneyConverter}"/>
+                    </p:column>
+                    <p:column headerText="Operações">
+                        <p:commandButton value="Baixar" action="baixarcontareceber" actionListener="#{contaReceberControle.alterar(cr)}"/>
+<!--                        <p:commandButton icon="ui-icon-pencil" action="contareceberedita" actionListener="{contareceberlista.alterar(cr)}"/>
+                        <p:commandButton icon="ui-icon-closethick" ajax="false" actionListener="{contareceberlista.excluir(cr)}"/>-->
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Nova conta a receber" action="contareceberedita" ajax="false" actionListener="#{contareceberlista.novo()}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+

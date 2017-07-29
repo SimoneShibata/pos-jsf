@@ -24,13 +24,13 @@ import javax.persistence.TemporalType;
  * @author UniCesumar
  */
 @Entity
-public class ContaReceber implements Serializable, BaseEntity {
+public class ContaPagar implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Temporal(TemporalType.DATE)
     private Date dataLancamento;
     
@@ -40,7 +40,7 @@ public class ContaReceber implements Serializable, BaseEntity {
     private Double valor;
     
     @ManyToOne
-    private Venda venda;
+    private Compra compra;
     
     @ManyToOne
     private Pessoa pessoa;
@@ -48,27 +48,52 @@ public class ContaReceber implements Serializable, BaseEntity {
     private Integer parcela;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
-            mappedBy = "contaReceber", orphanRemoval = true)
-    private List<BaixaContaReceber> listaBaixa;
+            mappedBy = "contaPagar", orphanRemoval = true)
+    private List<BaixaContaPagar> listaBaixa;
+    
     
     public Double getValorBaixado() {
         Double total = 0d;
-        for (BaixaContaReceber baixa : listaBaixa) {
+        for (BaixaContaPagar baixa : listaBaixa) {
             total += baixa.getValor();
         }
         return total;
     }
     
-    public List<BaixaContaReceber> getListaBaixa() {
-        return listaBaixa;
+    
+    public Long getId() {
+        return id;
     }
 
-    public void setListaBaixa(List<BaixaContaReceber> listaBaixa) {
-        this.listaBaixa = listaBaixa;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    
-    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ContaPagar)) {
+            return false;
+        }
+        ContaPagar other = (ContaPagar) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entidade.ContaPagar[ id=" + id + " ]";
+    }
+
     public Date getDataLancamento() {
         return dataLancamento;
     }
@@ -93,13 +118,14 @@ public class ContaReceber implements Serializable, BaseEntity {
         this.valor = valor;
     }
 
-    public Venda getVenda() {
-        return venda;
+    public Compra getCompra() {
+        return compra;
     }
 
-    public void setVenda(Venda venda) {
-        this.venda = venda;
+    public void setCompra(Compra compra) {
+        this.compra = compra;
     }
+
 
     public Pessoa getPessoa() {
         return pessoa;
@@ -116,42 +142,14 @@ public class ContaReceber implements Serializable, BaseEntity {
     public void setParcela(Integer parcela) {
         this.parcela = parcela;
     }
+
+    public List<BaixaContaPagar> getListaBaixa() {
+        return listaBaixa;
+    }
+
+    public void setListaBaixa(List<BaixaContaPagar> listaBaixa) {
+        this.listaBaixa = listaBaixa;
+    }
     
-    
-
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ContaReceber)) {
-            return false;
-        }
-        ContaReceber other = (ContaReceber) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entidade.ContaReceber[ id=" + id + " ]";
-    }
     
 }

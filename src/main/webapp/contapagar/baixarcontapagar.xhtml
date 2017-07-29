@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <h2>Baixar Contas a Pagar</h2>
+                <p:growl autoUpdate="true" />
+                <p:panel header="Conta a Receber">
+                    <p:panelGrid columns="2" id="painel">
+                        Número:
+                        <p:outputLabel value="#{contaReceberControle.contaReceber.id}" id="id"/>
+                        Data Lançamento
+                        <p:outputLabel value="#{contaReceberControle.contaReceber.dataLancamento}" id="dataLancamento">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
+                        </p:outputLabel>
+                        Vencimento
+                        <p:outputLabel value="#{contaReceberControle.contaReceber.vencimento}" id="vencimento">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
+                        </p:outputLabel>
+                        Parcela
+                        <p:outputLabel value="#{contaReceberControle.contaReceber.parcela}" id="parcela"/>
+                        Valor
+                        <h:outputLabel value="#{contaReceberControle.contaReceber.valor}" 
+                                       converter="#{contaReceberControle.moneyConverter}" id="valor"/>
+
+                    </p:panelGrid>
+                </p:panel>
+                <p:panelGrid columns="2">
+                    Data da baixa:
+                    <p:calendar value="#{contaReceberControle.baixaContaReceber.dataBaixa}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                    </p:calendar>
+                    Forma pagamento:
+                    <p:inputText value="#{contaReceberControle.baixaContaReceber.formaPagamento}"/>
+                    Valor:
+                    <p:inputText value="#{contaReceberControle.baixaContaReceber.valor}" />
+                    <p:commandButton value="Baixar" ajax="false" actionListener="#{contaReceberControle.baixar()}"/>
+                </p:panelGrid>
+                <p:dataTable value="#{contaReceberControle.contaReceber.listaBaixa}" var="b" emptyMessage="Nenhuma baixa realizada">
+                    <p:column headerText="Data da baixa">
+                        <h:outputText value="#{b.dataBaixa}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Forma de pagamento">
+                        #{b.formaPagamento}
+                    </p:column>
+                    <p:column headerText="Valor">
+                        <h:outputText value="#{b.valor}" converter="#{contaReceberControle.moneyConverter}"/>
+                    </p:column>
+                </p:dataTable>
+                
+                Total Baixado:
+                <h:outputLabel 
+                    value="#{contaReceberControle.contaReceber.valorBaixado}" 
+                    style="font-size:large"
+                    converter="#{contaReceberControle.moneyConverter}"/>
+                
+                <br/>
+                
+                <p:commandButton value="Salvar" actionListener="#{contaReceberControle.salvar()}" action="contareceberlista" ajax="false"/>
+                <p:commandButton value="Voltar" action="contareceberlista" immediate="true" ajax="false" />
+                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+
