@@ -76,6 +76,7 @@
                     <p:inputText value="#{compraControle.compra.numeroParcelas}" />
                     Data da primeira parcela:
                     <p:calendar value="#{compraControle.dataPrimeiraParcela}" 
+                                mindate="#{compraControle.hoje}"
                                 pattern="dd/MM/yyyy"
                                 locale="pt_BR"/>
                     <p:commandButton value="Gerar parcelas" ajax="true" update="painelParcelas" actionListener="#{compraControle.gerarParcelas()}"/>

@@ -10,10 +10,10 @@ import converter.MoneyConverter;
 import entidade.Compra;
 import entidade.ContaPagar;
 import entidade.ItemCompra;
-import entidade.Pessoa;
+import entidade.PessoaJuridica;
 import entidade.Produto;
 import facade.CompraFacade;
-import facade.PessoaFacade;
+import facade.PessoaJuridicaFacade;
 import facade.ProdutoFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,10 +21,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 /**
  *
@@ -39,13 +37,14 @@ public class CompraControle implements Serializable {
     @EJB
     private CompraFacade compraFacade;
     @EJB
-    private PessoaFacade pessoaFacade;
+    private PessoaJuridicaFacade pessoaJuridicaFacade;
     private ConverterGenerico converterPessoa;
     private MoneyConverter moneyConverter;
     @EJB
     private ProdutoFacade produtoFacade;
     private ConverterGenerico converterProduto;
     private Date dataPrimeiraParcela;
+    private Date hoje = new Date();
     
     public void gerarParcelas() {
         compra.setListaContasPagar(new ArrayList<ContaPagar>());
@@ -125,13 +124,13 @@ public class CompraControle implements Serializable {
         this.moneyConverter = moneyConverter;
     }
 
-    public List<Pessoa> listaPessoas(String parte) {
-        return pessoaFacade.listaFiltrando(parte, "nome");
+    public List<PessoaJuridica> listaPessoas(String parte) {
+        return pessoaJuridicaFacade.listaFiltrando(parte, "nome");
     }
 
     public ConverterGenerico getConverterPessoa() {
         if (converterPessoa == null) {
-            converterPessoa = new ConverterGenerico(pessoaFacade);
+            converterPessoa = new ConverterGenerico(pessoaJuridicaFacade);
         }
         return converterPessoa;
     }
@@ -185,5 +184,15 @@ public class CompraControle implements Serializable {
     public void setItemCompra(ItemCompra itemCompra) {
         this.itemCompra = itemCompra;
     }
+
+    public Date getHoje() {
+        return hoje;
+    }
+
+    public void setHoje(Date hoje) {
+        this.hoje = hoje;
+    }
+    
+    
 
 }

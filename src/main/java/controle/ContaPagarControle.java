@@ -5,17 +5,22 @@
  */
 package controle;
 
+import converter.ConverterGenerico;
 import converter.MoneyConverter;
 import entidade.BaixaContaPagar;
 import entidade.ContaPagar;
-import entidade.ContaReceber;
+import entidade.PessoaJuridica;
 import facade.ContaPagarFacade;
+import facade.PessoaJuridicaFacade;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -26,11 +31,15 @@ import javax.faces.bean.SessionScoped;
 public class ContaPagarControle  implements Serializable {
 
     private ContaPagar contaPagar;
-
+    private Date hoje = new Date();
+    
     @EJB
     private ContaPagarFacade contaPagarFacade;
     private MoneyConverter moneyConverter;
     private BaixaContaPagar baixaContaPagar;
+    @EJB
+    private PessoaJuridicaFacade pessoaJuridicaFacade;
+    private ConverterGenerico converterPessoa;
     
     public boolean getSituacaoPago(ContaPagar cr) {
         if(Objects.equals(cr.getValorBaixado(), cr.getValor())) {
@@ -94,9 +103,37 @@ public class ContaPagarControle  implements Serializable {
     }
     
     public void baixar() {
-        baixaContaPagar.setContaPagar(contaPagar);
-        contaPagar.getListaBaixa().add(baixaContaPagar);
-        baixaContaPagar = new BaixaContaPagar();
+        Double total = baixaContaPagar.getValor() + contaPagar.getValorBaixado();
+        if (total <= contaPagar.getValor() ) {
+            baixaContaPagar.setContaPagar(contaPagar);
+            contaPagar.getListaBaixa().add(baixaContaPagar);
+            baixaContaPagar = new BaixaContaPagar();            
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Não é possível fazer baixa de valor superior ao valor da conta a pagar", "Erro"));
+        }
+    }
+
+    public Date getHoje() {
+        return hoje;
+    }
+
+    public void setHoje(Date hoje) {
+        this.hoje = hoje;
+    }
+    
+    public List<PessoaJuridica> listaPessoas(String parte) {
+        return pessoaJuridicaFacade.listaFiltrando(parte, "nome");
+    }
+
+    public ConverterGenerico getConverterPessoa() {
+        if (converterPessoa == null) {
+            converterPessoa = new ConverterGenerico(pessoaJuridicaFacade);
+        }
+        return converterPessoa;
+    }
+
+    public void setConverterPessoa(ConverterGenerico converterPessoa) {
+        this.converterPessoa = converterPessoa;
     }
     
 }
