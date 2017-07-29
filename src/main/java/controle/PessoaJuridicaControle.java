@@ -8,13 +8,14 @@ package controle;
 import entidade.Endereco;
 import entidade.PessoaJuridica;
 import facade.PessoaJuridicaFacade;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class PessoaJuridicaControle {
+public class PessoaJuridicaControle implements Serializable {
 
     private PessoaJuridica pessoaJuridica;
 

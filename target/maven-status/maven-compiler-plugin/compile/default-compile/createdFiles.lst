@@ -1,3 +1,4 @@
+entidade\ItemCompra.class
 converter\ConverterGenerico.class
 entidade\PessoaFisica.class
 entidade\Pessoa.class
@@ -6,6 +7,7 @@ controle\PessoaJuridicaControle.class
 entidade\Estado.class
 controle\ProdutoControle.class
 facade\PessoaFacade.class
+entidade\BaixaContaPagar.class
 controle\ContaReceberControle.class
 controle\PessoaControle.class
 facade\ContaReceberFacade.class
@@ -14,13 +16,16 @@ controle\PessoaFisicaControle.class
 entidade\ItensVenda.class
 entidade\Produto.class
 controle\GrupoProdutoControle.class
+controle\ContaPagarControle.class
 controle\EstadoControle.class
 entidade\GrupoProduto.class
 facade\AbstractFacade.class
 facade\CidadeFacade.class
+facade\ContaPagarFacade.class
 entidade\BaixaContaReceber.class
 facade\PessoaJuridicaFacade.class
 facade\EstadoFacade.class
+entidade\ContaPagar.class
 facade\VendaFacade.class
 controle\SistemaControle.class
 entidade\BaseEntity.class
@@ -29,8 +34,11 @@ entidade\Venda.class
 facade\ProdutoFacade.class
 controle\CidadeControle.class
 entidade\Endereco.class
+entidade\Compra.class
 converter\MoneyConverter.class
+facade\CompraFacade.class
 entidade\Cidade.class
 entidade\ContaReceber.class
+controle\CompraControle.class
 entidade\PessoaJuridica.class
 facade\PessoaFisicaFacade.class

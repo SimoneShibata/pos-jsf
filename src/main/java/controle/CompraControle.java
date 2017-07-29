@@ -9,16 +9,13 @@ import converter.ConverterGenerico;
 import converter.MoneyConverter;
 import entidade.Compra;
 import entidade.ContaPagar;
-import entidade.ContaReceber;
 import entidade.ItemCompra;
-import entidade.ItensVenda;
 import entidade.Pessoa;
 import entidade.Produto;
-import entidade.Venda;
 import facade.CompraFacade;
 import facade.PessoaFacade;
 import facade.ProdutoFacade;
-import facade.VendaFacade;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,7 +32,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class CompraControle {
+public class CompraControle implements Serializable {
 
     private Compra compra;
     private ItemCompra itemCompra;
@@ -78,23 +75,19 @@ public class CompraControle {
             }
         }
         
-        if (estoque >= itemCompra.getQuantidade()) {
-            Boolean existeNaLista = false;
-            for (ItemCompra iv : compra.getItensCompra()) {
-                if (iv.getProduto().equals(itemCompra.getProduto())) {
-                    iv.setQuantidade(iv.getQuantidade() + itemCompra.getQuantidade());
-                    iv.setPreco(itemCompra.getPreco());
-                    existeNaLista = true; 
-                }
+        Boolean existeNaLista = false;
+        for (ItemCompra iv : compra.getItensCompra()) {
+            if (iv.getProduto().equals(itemCompra.getProduto())) {
+                iv.setQuantidade(iv.getQuantidade() + itemCompra.getQuantidade());
+                iv.setPreco(itemCompra.getPreco());
+                existeNaLista = true; 
             }
-            if (!existeNaLista) {
-                itemCompra.setCompra(compra);
-                compra.getItensCompra().add(itemCompra);
-            }
-            itemCompra = new ItemCompra();
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Estoque insuficiente", "Restam apenas" + estoque + " unidades"));
         }
+        if (!existeNaLista) {
+            itemCompra.setCompra(compra);
+            compra.getItensCompra().add(itemCompra);
+        }
+        itemCompra = new ItemCompra();
     }
     
     public void removerItem(ItemCompra it){
@@ -175,6 +168,22 @@ public class CompraControle {
     public void alterar(Compra e) {
         this.compra = e;
         itemCompra = new ItemCompra();
+    }
+
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
+    public ItemCompra getItemCompra() {
+        return itemCompra;
+    }
+
+    public void setItemCompra(ItemCompra itemCompra) {
+        this.itemCompra = itemCompra;
     }
 
 }

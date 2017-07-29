@@ -6,6 +6,7 @@
 package entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -35,12 +36,18 @@ public class Compra implements Serializable {
     private Double valorTotal;
     @ManyToOne
     private Pessoa fornecedor;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "venda", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "compra", orphanRemoval = true)
     private List<ItemCompra> itensCompra;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "venda", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "compra", orphanRemoval = true)
     private List<ContaPagar> listaContasPagar;
     private Integer numeroParcelas;
 
+    public Compra() {
+        dataCompra = new Date();
+        itensCompra = new ArrayList<ItemCompra>();
+        listaContasPagar = new ArrayList<ContaPagar>();
+    }
+    
     public Long getId() {
         return id;
     }
@@ -83,6 +90,11 @@ public class Compra implements Serializable {
     }
 
     public Double getValorTotal() {
+        Double valor = 0d;
+        for(ItemCompra it : itensCompra){
+            valor = valor + it.getSubTotal();
+        }
+        this.valorTotal = valor;
         return valorTotal;
     }
 

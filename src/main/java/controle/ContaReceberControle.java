@@ -9,6 +9,7 @@ import converter.MoneyConverter;
 import entidade.BaixaContaReceber;
 import entidade.ContaReceber;
 import facade.ContaReceberFacade;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.EJB;
@@ -21,7 +22,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class ContaReceberControle {
+public class ContaReceberControle implements Serializable {
 
     private ContaReceber contaReceber;
 

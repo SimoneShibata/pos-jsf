@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <h2>Movimento de Compra</h2>
+                <p:growl autoUpdate="true" />
+                <p:panelGrid columns="3">
+                    Data:
+                    <p:calendar value="#{compraControle.compra.dataCompra}"
+                        pattern="dd/MM/yyyy"
+                        locale="pt_BR"
+                        required="true"
+                        requiredMessage="A data da compra é obrigatório"
+                        id="data"
+                    />
+                    <p:message for="data"/>
+                    Fornecedor:<p:autoComplete value="#{compraControle.compra.fornecedor}" 
+                                            id="pessoa" 
+                                            completeMethod="#{compraControle.listaPessoas}"
+                                            converter="#{compraControle.converterPessoa}"
+                                            var="pe"
+                                            itemLabel="#{pe.nome}"
+                                            itemValue="#{pe}"                                            
+                                            forceSelection="true"
+                                            required="true" 
+                                            requiredMessage="O fornecedor é obrigatório!"/>
+                    <p:message for="pessoa"/>
+                    Total: <h:outputText value="#{compraControle.compra.valorTotal}" converter="#{compraControle.moneyConverter}" id="total"/>
+                </p:panelGrid>
+                <p:panel header="Itens da Compra" id="painel">                    
+                    Produto:<p:autoComplete value="#{compraControle.itemCompra.produto}" 
+                                                id="produto" 
+                                                completeMethod="#{compraControle.listaProdutos}"
+                                                converter="#{compraControle.converterProduto}"
+                                                var="pro"
+                                                itemLabel="#{pro.nome}"
+                                                itemValue="#{pro}"                                            
+                                                forceSelection="true"
+                                                size="40"
+                                                >
+                            <p:ajax update="preco" event="itemSelect" listener="#{compraControle.atualizaPreco()}"/>
+                        </p:autoComplete>
+                        Preço: 
+                        <p:inputText value="#{compraControle.itemCompra.preco}" id="preco" size="10"
+                                converter="#{compraControle.moneyConverter}" onkeydown="mascaraMonetaria(this)"/>
+                        Quantidade: 
+                        <p:inputText value="#{compraControle.itemCompra.quantidade}" size="10"/>
+                        
+                        <p:commandButton value="ADD" actionListener="#{compraControle.addItem()}" ajax="true" update="total painel"/>
+                        <p:dataTable value="#{compraControle.compra.itensCompra}" var="it">
+                            <p:column headerText="Produto">
+                                #{it.produto.nome}
+                            </p:column>
+                            <p:column headerText="Preço">
+                                <h:outputText value="#{it.preco}" converter="#{vendaControle.moneyConverter}"/>
+                            </p:column>
+                            <p:column headerText="Quantidade">
+                                #{it.quantidade}
+                            </p:column>
+                            <p:column headerText="SubTotal">
+                                <h:outputText value="#{it.subTotal}" converter="#{compraControle.moneyConverter}"/>
+                            </p:column>
+                            <p:column headerText="Operação">
+                                <p:commandButton icon="ui-icon-closethick" ajax="false" actionListener="#{compraControle.removerItem(it)}"/>
+                            </p:column>
+                        </p:dataTable>
+                </p:panel>
+                <p:panel header="Parcelas" id="painelParcelas">
+                    Quantidade de Parcelas:
+                    <p:inputText value="#{compraControle.compra.numeroParcelas}" />
+                    Data da primeira parcela:
+                    <p:calendar value="#{compraControle.dataPrimeiraParcela}" 
+                                pattern="dd/MM/yyyy"
+                                locale="pt_BR"/>
+                    <p:commandButton value="Gerar parcelas" ajax="true" update="painelParcelas" actionListener="#{compraControle.gerarParcelas()}"/>
+                    <p:dataTable value="#{compraControle.compra.listaContasPagar}" var="cr">
+                        <p:column headerText="Vencimento">
+                            <h:outputText value="#{cr.vencimento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Parcela">
+                            <h:outputText value="#{cr.parcela}"></h:outputText>
+                        </p:column>
+                        <p:column headerText="Valor">
+                            <h:outputText value="#{cr.valor}" converter="#{compraControle.moneyConverter}"></h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+                
+                <p:commandButton value="Salvar" actionListener="#{compraControle.salvar()}" action="compralista" ajax="false"/>
+                <p:commandButton value="Voltar" action="compralista" immediate="true" ajax="false" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+

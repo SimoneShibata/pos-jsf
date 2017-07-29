@@ -11,6 +11,7 @@ import entidade.GrupoProduto;
 import entidade.Produto;
 import facade.GrupoProdutoFacade;
 import facade.ProdutoFacade;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -22,7 +23,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class ProdutoControle {
+public class ProdutoControle implements Serializable {
 
     private Produto produto;
 

@@ -7,11 +7,10 @@ package controle;
 
 import converter.MoneyConverter;
 import entidade.BaixaContaPagar;
-import entidade.BaixaContaReceber;
 import entidade.ContaPagar;
 import entidade.ContaReceber;
 import facade.ContaPagarFacade;
-import facade.ContaReceberFacade;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.EJB;
@@ -24,7 +23,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class ContaPagarControle {
+public class ContaPagarControle  implements Serializable {
 
     private ContaPagar contaPagar;
 
@@ -39,7 +38,7 @@ public class ContaPagarControle {
         }
         return false;
     }
-    public boolean getSituacaoAberto(ContaReceber cr) {
+    public boolean getSituacaoAberto(ContaPagar cr) {
         if(cr.getValorBaixado() < cr.getValor()) {
             return true;
         }

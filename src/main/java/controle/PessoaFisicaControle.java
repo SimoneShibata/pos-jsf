@@ -5,20 +5,17 @@
  */
 package controle;
 
-import converter.ConverterGenerico;
-import entidade.Cidade;
 import entidade.Endereco;
 import entidade.PessoaFisica;
-import facade.CidadeFacade;
 import facade.PessoaFisicaFacade;
-import java.util.List;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class PessoaFisicaControle {
+public class PessoaFisicaControle implements Serializable {
 
     private PessoaFisica pessoaFisica;
 

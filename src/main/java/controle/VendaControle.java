@@ -15,6 +15,7 @@ import entidade.Venda;
 import facade.PessoaFacade;
 import facade.ProdutoFacade;
 import facade.VendaFacade;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,7 +32,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class VendaControle {
+public class VendaControle implements Serializable {
 
     private Venda venda;
     private ItensVenda itensVenda;

@@ -8,14 +8,14 @@
     <ui:composition template="/index.xhtml">
         <ui:define name="body">
             <h:form>
-                <h2>Movimento de Contas à Receber</h2>                
-                <p:dataTable value="#{contaReceberControle.listaTodos()}" var="cr" id="tabela"
+                <h2>Movimento de Contas a Pagar</h2>                
+                <p:dataTable value="#{contaPagarControle.listaTodos()}" var="cr" id="tabela"
                              paginator="true" rows="3"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="3,5,10,15,20,50,100">
                     <p:column headerText="Situação">
-                        <p:outputLabel value="Aberto" style="font-weight: bold;color: red" rendered="#{contaReceberControle.getSituacaoAberto(cr)}" />
-                        <p:outputLabel value="Pago" style="font-weight: bold;color: green" rendered="#{contaReceberControle.getSituacaoPago(cr)}" />
+                        <p:outputLabel value="Aberto" style="font-weight: bold;color: red" rendered="#{contaPagarControle.getSituacaoAberto(cr)}" />
+                        <p:outputLabel value="Pago" style="font-weight: bold;color: green" rendered="#{contaPagarControle.getSituacaoPago(cr)}" />
                     </p:column>
                     <p:column headerText="Data Lançamento" filterBy="#{cr.dataLancamento}" filterMatchMode="contains">
                         <p:outputLabel value="#{cr.dataLancamento}">
@@ -27,25 +27,23 @@
                             <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
                         </p:outputLabel>
                     </p:column>
-                    <p:column headerText="Cliente" filterBy="#{cr.pessoa.nome}" filterMatchMode="contains">
+                    <p:column headerText="Fornecedor" filterBy="#{cr.pessoa.nome}" filterMatchMode="contains">
                         #{cr.pessoa.nome}
                     </p:column>
                     <p:column headerText="Parcela" filterBy="#{cr.parcela}" filterMatchMode="contains">
                         #{cr.parcela}
                     </p:column>
                     <p:column headerText="Valor" filterBy="#{cr.valor}" filterMatchMode="contains">
-                        <h:outputText value="#{cr.valor}" converter="#{contaReceberControle.moneyConverter}"/>
+                        <h:outputText value="#{cr.valor}" converter="#{contaPagarControle.moneyConverter}"/>
                     </p:column>
                     <p:column headerText="Valor Baixado" filterBy="#{cr.valorBaixado}" filterMatchMode="contains">
-                        <h:outputText value="#{cr.valorBaixado}" converter="#{contaReceberControle.moneyConverter}"/>
+                        <h:outputText value="#{cr.valorBaixado}" converter="#{contaPagarControle.moneyConverter}"/>
                     </p:column>
                     <p:column headerText="Operações">
-                        <p:commandButton value="Baixar" action="baixarcontareceber" actionListener="#{contaReceberControle.alterar(cr)}"/>
-<!--                        <p:commandButton icon="ui-icon-pencil" action="contareceberedita" actionListener="{contareceberlista.alterar(cr)}"/>
-                        <p:commandButton icon="ui-icon-closethick" ajax="false" actionListener="{contareceberlista.excluir(cr)}"/>-->
+                        <p:commandButton value="Baixar" action="baixarcontapagar" actionListener="#{contaPagarControle.alterar(cr)}"/>
                     </p:column>
                 </p:dataTable>
-                <p:commandButton value="Nova conta a receber" action="contareceberedita" ajax="false" actionListener="#{contareceberlista.novo()}"/>
+                <p:commandButton value="Nova conta a pagar" action="contapagaredita" ajax="false" actionListener="#{contaPagarControle.novo()}"/>
             </h:form>
         </ui:define>
     </ui:composition>

@@ -12,6 +12,7 @@ import entidade.PessoaFisica;
 import entidade.PessoaJuridica;
 import facade.CidadeFacade;
 import facade.PessoaFacade;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -20,7 +21,7 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class PessoaControle {
+public class PessoaControle implements Serializable {
 
     @ManagedProperty(value = "#{pessoaFisicaControle}")
     private PessoaFisicaControle pessoaFisicaControle;

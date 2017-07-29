@@ -9,6 +9,7 @@ import converter.ConverterGenerico;
 import entidade.Cidade;
 import facade.CidadeFacade;
 import facade.EstadoFacade;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -20,7 +21,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class CidadeControle {
+public class CidadeControle implements Serializable {
 
     private Cidade cidade;
     private ConverterGenerico estadoConverter;

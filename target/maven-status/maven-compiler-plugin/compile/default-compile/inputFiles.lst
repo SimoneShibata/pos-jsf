@@ -1,6 +1,8 @@
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\controle\ContaReceberControle.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\controle\SistemaControle.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\PessoaFisica.java
+C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\BaixaContaPagar.java
+C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\facade\ContaPagarFacade.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\controle\VendaControle.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\facade\ProdutoFacade.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\controle\PessoaJuridicaControle.java
@@ -9,6 +11,7 @@ C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\cont
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\facade\AbstractFacade.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\controle\EstadoControle.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\controle\GrupoProdutoControle.java
+C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\ItemCompra.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\facade\PessoaFacade.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\facade\VendaFacade.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\PessoaJuridica.java
@@ -17,16 +20,19 @@ C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\enti
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\ItensVenda.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\facade\PessoaJuridicaFacade.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\controle\CidadeControle.java
+C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\controle\ContaPagarControle.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\Endereco.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\ContaReceber.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\facade\CidadeFacade.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\facade\PessoaFisicaFacade.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\Venda.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\BaixaContaReceber.java
+C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\controle\CompraControle.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\controle\PessoaControle.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\GrupoProduto.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\converter\MoneyConverter.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\Produto.java
+C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\ContaPagar.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\converter\ConverterGenerico.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\BaseEntity.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\Cidade.java
@@ -34,3 +40,5 @@ C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\enti
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\Pessoa.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\facade\ContaReceberFacade.java
 C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\facade\EstadoFacade.java
+C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\entidade\Compra.java
+C:\Users\unicesumar\Documents\NetBeansProjects\AulaJSfPosJava\src\main\java\facade\CompraFacade.java

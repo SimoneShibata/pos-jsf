@@ -7,6 +7,7 @@ package controle;
 
 import entidade.GrupoProduto;
 import facade.GrupoProdutoFacade;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -20,7 +21,7 @@ import org.primefaces.model.TreeNode;
  */
 @ManagedBean
 @SessionScoped
-public class GrupoProdutoControle {
+public class GrupoProdutoControle implements Serializable {
 
     private GrupoProduto grupoProduto;
     private TreeNode root;

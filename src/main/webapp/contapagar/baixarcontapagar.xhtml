@@ -10,38 +10,38 @@
             <h:form>
                 <h2>Baixar Contas a Pagar</h2>
                 <p:growl autoUpdate="true" />
-                <p:panel header="Conta a Receber">
+                <p:panel header="Conta a Pagar">
                     <p:panelGrid columns="2" id="painel">
                         Número:
-                        <p:outputLabel value="#{contaReceberControle.contaReceber.id}" id="id"/>
+                        <p:outputLabel value="#{contaPagarControle.contaPagar.id}" id="id"/>
                         Data Lançamento
-                        <p:outputLabel value="#{contaReceberControle.contaReceber.dataLancamento}" id="dataLancamento">
+                        <p:outputLabel value="#{contaPagarControle.contaPagar.dataLancamento}" id="dataLancamento">
                             <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
                         </p:outputLabel>
                         Vencimento
-                        <p:outputLabel value="#{contaReceberControle.contaReceber.vencimento}" id="vencimento">
+                        <p:outputLabel value="#{contaPagarControle.contaPagar.vencimento}" id="vencimento">
                             <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
                         </p:outputLabel>
                         Parcela
-                        <p:outputLabel value="#{contaReceberControle.contaReceber.parcela}" id="parcela"/>
+                        <p:outputLabel value="#{contaPagarControle.contaPagar.parcela}" id="parcela"/>
                         Valor
-                        <h:outputLabel value="#{contaReceberControle.contaReceber.valor}" 
-                                       converter="#{contaReceberControle.moneyConverter}" id="valor"/>
+                        <h:outputLabel value="#{contaPagarControle.contaPagar.valor}" 
+                                       converter="#{contaPagarControle.moneyConverter}" id="valor"/>
 
                     </p:panelGrid>
                 </p:panel>
                 <p:panelGrid columns="2">
                     Data da baixa:
-                    <p:calendar value="#{contaReceberControle.baixaContaReceber.dataBaixa}">
+                    <p:calendar value="#{contaPagarControle.baixaContaPagar.dataBaixa}">
                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
                     </p:calendar>
                     Forma pagamento:
-                    <p:inputText value="#{contaReceberControle.baixaContaReceber.formaPagamento}"/>
+                    <p:inputText value="#{contaPagarControle.baixaContaPagar.formaPagamento}"/>
                     Valor:
-                    <p:inputText value="#{contaReceberControle.baixaContaReceber.valor}" />
-                    <p:commandButton value="Baixar" ajax="false" actionListener="#{contaReceberControle.baixar()}"/>
+                    <p:inputText value="#{contaPagarControle.baixaContaPagar.valor}" />
+                    <p:commandButton value="Baixar" ajax="false" actionListener="#{contaPagarControle.baixar()}"/>
                 </p:panelGrid>
-                <p:dataTable value="#{contaReceberControle.contaReceber.listaBaixa}" var="b" emptyMessage="Nenhuma baixa realizada">
+                <p:dataTable value="#{contaPagarControle.contaPagar.listaBaixa}" var="b" emptyMessage="Nenhuma baixa realizada">
                     <p:column headerText="Data da baixa">
                         <h:outputText value="#{b.dataBaixa}">
                             <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" />
@@ -51,20 +51,20 @@
                         #{b.formaPagamento}
                     </p:column>
                     <p:column headerText="Valor">
-                        <h:outputText value="#{b.valor}" converter="#{contaReceberControle.moneyConverter}"/>
+                        <h:outputText value="#{b.valor}" converter="#{contaPagarControle.moneyConverter}"/>
                     </p:column>
                 </p:dataTable>
                 
                 Total Baixado:
                 <h:outputLabel 
-                    value="#{contaReceberControle.contaReceber.valorBaixado}" 
+                    value="#{contaPagarControle.contaPagar.valorBaixado}" 
                     style="font-size:large"
-                    converter="#{contaReceberControle.moneyConverter}"/>
+                    converter="#{contaPagarControle.moneyConverter}"/>
                 
                 <br/>
                 
-                <p:commandButton value="Salvar" actionListener="#{contaReceberControle.salvar()}" action="contareceberlista" ajax="false"/>
-                <p:commandButton value="Voltar" action="contareceberlista" immediate="true" ajax="false" />
+                <p:commandButton value="Salvar" actionListener="#{contaPagarControle.salvar()}" action="contapagarlista" ajax="false"/>
+                <p:commandButton value="Voltar" action="contapagarlista" immediate="true" ajax="false" />
                 
             </h:form>
         </ui:define>
