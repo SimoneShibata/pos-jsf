@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <h2>Movimento de Contas à Receber</h2>                
+                <p:dataTable value="#{contareceberlista.listaTodos()}" var="cr" id="tabela"
+                             paginator="true" rows="3"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="3,5,10,15,20,50,100">
+                    <p:column headerText="Nome" filterBy="#{cr.nome}" filterMatchMode="contains">
+                        <p:outputLabel value="#{cr.nome}"/>
+                    </p:column>
+                    <p:column headerText="Sigla" filterBy="#{cr.sigla}" filterMatchMode="contains">
+                        #{cr.sigla}
+                    </p:column>
+                    <p:column headerText="Operações">
+                        <p:commandButton icon="ui-icon-pencil" action="contareceberedita" actionListener="#{contareceberlista.alterar(cr)}"/>
+                        <p:commandButton icon="ui-icon-closethick" ajax="false" actionListener="#{contareceberlista.excluir(cr)}"/>
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Nova conta a receber" action="contareceberedita" ajax="false" actionListener="#{contareceberlista.novo()}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+

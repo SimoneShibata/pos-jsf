@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Sistema Pós Unicesumar</title>
+        <h:outputScript library="js" name="/Parsers.js" />
+        <h:outputScript library="js" name="/JavaScriptUtil.js" />
+        <h:outputScript library="js" name="/InputMask.js" />   
+        <script language="JavaScript">
+            function mascaraMonetaria(arg) {
+                //Set up the NumberMasks
+                var separadorDecimal = ",";
+                var separadorMilhar = ".";
+
+                var formato = new NumberParser(2, separadorDecimal, separadorMilhar, true);
+                formato.currencySymbol = "R$";
+                formato.useCurrency = true;
+                formato.allowNegative = false;
+                formato.currencyInside = true;
+
+                if (arg.className.indexOf('mascaraMonetaria') == -1) {
+                    var mascaraMonetariaFinal = new NumberMask(formato, arg, 20);
+                    mascaraMonetariaFinal.leftToRight = true;
+                    arg.setAttribute('autocomplete', 'off');
+                    arg.className += ' mascaraMonetaria';
+                }
+            }
+        </script> 
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" resizable="true"  
+                              collapsible="true" collapsed="false"  size="90" style="text-align: center"
+                              >
+                    <p align="right">
+                        <table border="0">
+                            <tr>
+                                <td align="center" width="2000px">
+                                    <h2>Sistema JSF Unicesumar</h2>
+                                </td>
+                                <td align="right">
+                                    <p:selectOneMenu value="#{sistemaControle.temas}">
+                                        <f:selectItems value="#{sistemaControle.listaTemas}"
+                                                       var="t"
+                                                       itemLabel="#{t.descricao}" itemValue="#{t}"/>
+                                        <p:ajax event="change" update="@all" />
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+                        </table>
+                    </p>
+                </p:layoutUnit>
+                <p:layoutUnit position="west" resizable="false" 
+                              size="180" header="Menu">
+                    <p:panelMenu style="width: 170">
+                        <p:submenu label="Cadastros" expanded="true">
+                            <p:menuitem value="Estado" action="/estado/estadolista" ajax="false"/>
+                            <p:menuitem value="Cidade" action="/cidade/cidadelista" ajax="false"/>
+                            <p:menuitem value="Pessoa" action="/pessoa/pessoalista" ajax="false"/>
+                            <p:menuitem value="Grupo Produto" action="/grupoproduto/grupoprodutolista" ajax="false"/>
+                            <p:menuitem value="Produto" action="/produto/produtolista" ajax="false"/>
+                        </p:submenu>
+                        <p:submenu label="Movimentos" expanded="true">
+                            <p:menuitem value="Compra" action="#" ajax="false"/>
+                            <p:menuitem value="Venda" action="/venda/vendalista" ajax="false"/>
+                            <p:menuitem value="Contas a Receber" action="/contareceber/contareceberlista" ajax="false"/>
+                        </p:submenu>
+                        <p:submenu label="Relatórios" expanded="true">
+                            <p:menuitem value="Estado" action="#" ajax="false"/>
+                            <p:menuitem value="Cidade" action="#" ajax="false"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                </p:layoutUnit>
+                
+                <p:layoutUnit position="south" size="40" style="text-align: center">
+                    Todos os direitos reservados. @2017
+                </p:layoutUnit>
+                
+                <p:layoutUnit position="center">
+                    <ui:insert id="corpo" name="body">Seja bem vindo!</ui:insert>
+                </p:layoutUnit>
+            </p:layout>
+        </h:form>
+    </h:body>
+</html>
+
+

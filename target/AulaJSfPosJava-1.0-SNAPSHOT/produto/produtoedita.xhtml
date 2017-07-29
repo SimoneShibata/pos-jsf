@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <h2>Cadastro de Produtos</h2>
+                <p:growl autoUpdate="true" />
+                <p:panelGrid columns="2" id="painel">
+                    Nome:
+                    <p:inputText value="#{produtoControle.produto.nome}" id="nome"
+                        required="true" requiredMessage="O nome é Obrigatório!"/>
+                    Estoque:
+                    <p:inputText value="#{produtoControle.produto.estoque}" id="estoque" 
+                        required="true" requiredMessage="O estoque é obrigatória!"/>
+                    Preço:
+                    <p:inputText value="#{produtoControle.produto.preco}" id="preco" 
+                        required="true" requiredMessage="O preço é obrigatória!"
+                        converter="#{produtoControle.moneyConverter}"
+                        onkeydown="mascaraMonetaria(this)"/>
+                    Unidade Medida:
+                    <p:inputText value="#{produtoControle.produto.unidade}" id="unidade" 
+                        required="true" requiredMessage="A unidade de medida é obrigatória!"/>
+                    Grupo: 
+                    <p:autoComplete value="#{produtoControle.produto.grupoProduto}"
+                        converter="#{produtoControle.grupoProdutoConverter}"
+                        completeMethod="#{produtoControle.listaGrupos}"
+                        var="gp"
+                        itemLabel="#{gp.nome}"
+                        itemValue="${gp}"
+                        forceSelection="true"
+                        required="true"
+                        requiredMessage="O grupo do produto é obrigatória"
+                        id="gp"
+                    />
+                    
+                    <p:commandButton value="Salvar" actionListener="#{produtoControle.salvar()}" action="produtolista" ajax="false"/>
+                    <p:commandButton value="Voltar" action="produtolista" immediate="true" ajax="false" />
+                </p:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h:form>
+                <h2>Cadastro de Pessoa Física</h2>
+                <p:growl autoUpdate="true" />
+                <p:panelGrid columns="3" id="painel">
+                    Nome:<p:inputText value="#{pessoaFisicaControle.pessoaFisica.nome}" id="nome"
+                                      required="true" requiredMessage="O nome é Obrigatório!"/>
+                    <p:message for="nome"/>
+                    CPF:<p:inputText value="#{pessoaFisicaControle.pessoaFisica.cpf}" id="cpf" 
+                                     required="true" requiredMessage="O CPF é obrigatória!"/>
+                    <p:message for="cpf"/>
+                    RG:<p:inputText value="#{pessoaFisicaControle.pessoaFisica.rg}" id="rg" 
+                                    required="true" requiredMessage="O RG é obrigatória!"/>
+                    <p:message for="rg"/>
+                    Endereço:<p:inputText value="#{pessoaFisicaControle.pessoaFisica.endereco.rua}" id="endereco" 
+                                          required="true" requiredMessage="O endereco é obrigatório!"/>
+                    <p:message for="endereco"/>
+                    Número:<p:inputText value="#{pessoaFisicaControle.pessoaFisica.endereco.numero}" id="numero" 
+                                        required="true" requiredMessage="O endereco é obrigatório!"/>
+                    <p:message for="numero"/>
+                    Cidade: <p:autoComplete value="#{pessoaFisicaControle.pessoaFisica.endereco.cidade}"
+                                            converter="#{pessoaControle.cidadeConverter}"
+                                            completeMethod="#{pessoaControle.listaCidades}"
+                                            var="cid"
+                                            itemLabel="#{cid.nome}"
+                                            itemValue="${cid}"
+                                            forceSelection="true"
+                                            required="true"
+                                            requiredMessage="A cidade é obrigatória"
+                                            id="cidade"/>
+                    <p:message for="cidade"/>
+                    
+                    Telefone:<p:inputText value="#{pessoaFisicaControle.pessoaFisica.telefone}" id="telefone" 
+                                          required="true" requiredMessage="O telefone é obrigatória!"/>
+                    <p:message for="telefone"/>
+
+                    <p:commandButton value="Salvar" actionListener="#{pessoaFisicaControle.salvar()}" action="pessoalista" ajax="false"/>
+                    <p:commandButton value="Voltar" action="pessoalista" immediate="true" ajax="false" />
+                </p:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+
